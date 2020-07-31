@@ -4,6 +4,13 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Power BI Embedded Demo</title>
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        window.reportId = urlParams.get('reportId');
+        window.embedUrl = urlParams.get('embedUrl');
+        window.token = urlParams.get('token');
+    </script>
     <script type="text/javascript" language="javascript"
         src="https://rawgit.com/Microsoft/PowerBI-JavaScript/master/dist/powerbi.min.js"></script>
     </script>
@@ -14,53 +21,49 @@
 </body>
 
 <script>
-    (() => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const reportId = urlParams.get('reportId');
-        const embedUrl = urlParams.get('embedUrl');
-        const token = urlParams.get('token');
-        var models = window['powerbi-client'].models;
+        (() => {
+            window.history.replaceState(null, null, window.location.pathname);
+            var models = window['powerbi-client'].models;
 
-        var embedConfiguration = {
-            type: 'report',
-            id: reportId,
-            embedUrl: embedUrl,
-            tokenType: models.TokenType.Embed,
-            accessToken: token
-        };
-        var $reportContainer = document.getElementById('reportContainer');
-        var report = powerbi.embed($reportContainer, embedConfiguration);
+            var embedConfiguration = {
+                type: 'report',
+                id: window.reportId,
+                embedUrl: window.embedUrl,
+                tokenType: models.TokenType.Embed,
+                accessToken: window.token
+            };
+            var $reportContainer = document.getElementById('reportContainer');
+            var report = powerbi.embed($reportContainer, embedConfiguration);
 
 
-        // $.ajax({
-        //     url: getEmbedToken,
-        //     jsonpCallback: 'callback',
-        //     contentType: 'application/javascript',
-        //     dataType: "jsonp",
-        //     success: function (json) {
+            // $.ajax({
+            //     url: getEmbedToken,
+            //     jsonpCallback: 'callback',
+            //     contentType: 'application/javascript',
+            //     dataType: "jsonp",
+            //     success: function (json) {
 
-        //         var models = window['powerbi-client'].models;
+            //         var models = window['powerbi-client'].models;
 
-        //         var embedConfiguration = {
-        //             type: 'report',
-        //             id: json.ReportId,
-        //             embedUrl: json.EmbedUrl,
-        //             tokenType: models.TokenType.Embed,
-        //             accessToken: json.EmbedToken
-        //         };
+            //         var embedConfiguration = {
+            //             type: 'report',
+            //             id: json.ReportId,
+            //             embedUrl: json.EmbedUrl,
+            //             tokenType: models.TokenType.Embed,
+            //             accessToken: json.EmbedToken
+            //         };
 
-        //         var $reportContainer = $('#reportContainer');
-        //         var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
+            //         var $reportContainer = $('#reportContainer');
+            //         var report = powerbi.embed($reportContainer.get(0), embedConfiguration);
 
 
-        //     },
-        //     error: function () {
-        //         alert("Error");
-        //     }
-        // });
+            //     },
+            //     error: function () {
+            //         alert("Error");
+            //     }
+            // });
 
-    })();
+        })();
 </script>
 
 </html>
