@@ -18,13 +18,14 @@
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString);
         const reportId = urlParams.get('reportId');
+        const embedUrl = urlParams.get('embedUrl');
         const token = urlParams.get('token');
         var models = window['powerbi-client'].models;
 
         var embedConfiguration = {
             type: 'report',
             id: reportId,
-            embedUrl: 'https://app.powerbi.com/reportEmbed?reportId=cdeaa48f-b88c-4a04-bd8c-b026451ebca4&ctid=57b8c96e-ac2f-4d78-a149-f1fc6817d3c4',
+            embedUrl: embedUrl,
             tokenType: models.TokenType.Embed,
             accessToken: token
         };
