@@ -10,6 +10,7 @@
         window.reportId = urlParams.get('reportId');
         window.embedUrl = urlParams.get('embedUrl');
         window.token = urlParams.get('token');
+        window.history.replaceState(null, null, window.location.pathname);
     </script>
     <script type="text/javascript" language="javascript"
         src="https://rawgit.com/Microsoft/PowerBI-JavaScript/master/dist/powerbi.min.js"></script>
@@ -22,7 +23,6 @@
 
 <script>
         (() => {
-            window.history.replaceState(null, null, window.location.pathname);
             var models = window['powerbi-client'].models;
 
             var embedConfiguration = {
